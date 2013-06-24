@@ -238,7 +238,7 @@ bool ArmKinematicsConstraintAware::getPositionIK(kinematics_msgs::GetPositionIK:
                                                  kinematics_msgs::GetPositionIK::Response &response)
 {
   if(!isReady(response.error_code)) {
-    if(request.ik_request.pose_stamped.header.frame_id != root_name_) {
+    if(request.ik_request.pose_stamped.header.frame_id != solver_->getBaseName()) {
       response.error_code.val = response.error_code.FRAME_TRANSFORM_FAILURE;
       return true;
     }
