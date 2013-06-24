@@ -338,6 +338,8 @@ bool ArmKinematicsConstraintAware::getPositionFK(kinematics_msgs::GetPositionFK:
                                       request.fk_link_names,
                                       poses);
   if(valid) {
+    response.pose_stamped.resize(poses.size());
+    response.fk_link_names.resize(poses.size());
     for(unsigned int i=0; i < poses.size(); i++) {      
       std_msgs::Header world_header;
       world_header.frame_id = collision_models_interface_->getWorldFrameId();
