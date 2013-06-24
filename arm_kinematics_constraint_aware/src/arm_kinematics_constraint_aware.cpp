@@ -349,6 +349,7 @@ bool ArmKinematicsConstraintAware::getPositionFK(kinematics_msgs::GetPositionFK:
                                                                       poses[i],
                                                                       response.pose_stamped[i])) {
         response.error_code.val = response.error_code.FRAME_TRANSFORM_FAILURE;
+        delete state;
         return true;
       }
       response.fk_link_names[i] = request.fk_link_names[i];
