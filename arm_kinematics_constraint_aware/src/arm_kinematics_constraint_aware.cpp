@@ -260,9 +260,8 @@ bool ArmKinematicsConstraintAware::getPositionIK(kinematics_msgs::GetPositionIK:
 
   geometry_msgs::PoseStamped pose_msg_in = request.ik_request.pose_stamped;
   geometry_msgs::PoseStamped pose_msg_out;
-  planning_environment::setRobotStateAndComputeTransforms(request.ik_request.robot_state, *state);
-  
-  if(!collision_models_interface_->convertPoseGivenWorldTransform(*collision_models_interface_->getPlanningSceneState(),
+
+  if(!collision_models_interface_->convertPoseGivenWorldTransform(*state,
                                                                   solver_->getBaseName(),
                                                                   pose_msg_in.header,
                                                                   pose_msg_in.pose,
