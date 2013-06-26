@@ -128,6 +128,7 @@ private:
   void printStringVec(const std::string &prefix, const std::vector<std::string> &string_vector);
   ros::Publisher display_trajectory_publisher_;
   bool visualize_solution_;
+  bool use_plugin_fk_;
 
   void advertiseBaseKinematicsServices();
   void advertiseConstraintIKService();

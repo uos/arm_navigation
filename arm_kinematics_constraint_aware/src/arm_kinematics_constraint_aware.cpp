@@ -61,6 +61,11 @@ ArmKinematicsConstraintAware::ArmKinematicsConstraintAware(): kinematics_loader_
     active_ = false;
     return;
   }
+  node_handle_.param<bool>("use_plugin_fk",use_plugin_fk_,false);
+  if (!use_plugin_fk_)
+    ROS_INFO("Using TF for forward kinematics");
+  else
+    ROS_INFO("Using solver for forward kinematics");
 
   collision_models_interface_ = new planning_environment::CollisionModelsInterface("robot_description");
 
@@ -335,9 +340,12 @@ bool ArmKinematicsConstraintAware::getPositionFK(kinematics_msgs::GetPositionFK:
                                                           *state);
 
   std::vector<geometry_msgs::Pose> poses;
-  bool valid = solver_->getPositionFK(state,
-                                      request.fk_link_names,
-                                      poses);
+  bool valid;
+  if (!use_plugin_fk_)
+    valid = solver_->getPositionFK(state, request.fk_link_names, poses);
+  else
+    valid = solver_->getPluginsPositionFK(request.fk_link_names, request.robot_state.joint_state.position, poses);
+
   if(valid) {
     response.pose_stamped.resize(poses.size());
     response.fk_link_names.resize(poses.size());

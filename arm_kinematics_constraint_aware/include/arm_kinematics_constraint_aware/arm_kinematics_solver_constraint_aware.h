@@ -64,6 +64,10 @@ public:
                      sensor_msgs::JointState& solution,
                      arm_navigation_msgs::ArmNavigationErrorCodes& error_code);
   
+  bool getPluginsPositionFK(const std::vector<std::string> &link_names,
+                            const std::vector<double> &joint_angles,
+                            std::vector<geometry_msgs::Pose> &poses);
+
   bool findConstraintAwareSolution(const geometry_msgs::Pose& pose,
                                    const arm_navigation_msgs::Constraints& constraints,
                                    planning_models::KinematicState* robot_state,

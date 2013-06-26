@@ -93,6 +93,15 @@ bool ArmKinematicsSolverConstraintAware::getPositionFK(const planning_models::Ki
   }
   return true;
 }
+
+bool ArmKinematicsSolverConstraintAware::getPluginsPositionFK(const std::vector<std::string> &link_names,
+                                                              const std::vector<double> &joint_angles,
+                                                              std::vector<geometry_msgs::Pose> &poses)
+{
+  bool valid = kinematics_solver_->getPositionFK(link_names, joint_angles, poses);
+  return valid;
+}
+
 bool ArmKinematicsSolverConstraintAware::getPositionIK(const geometry_msgs::Pose &pose,
                                                        const planning_models::KinematicState* robot_state,
                                                        sensor_msgs::JointState& solution,
