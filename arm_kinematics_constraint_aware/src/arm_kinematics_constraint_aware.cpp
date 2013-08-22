@@ -283,7 +283,7 @@ bool ArmKinematicsConstraintAware::getPositionIK(kinematics_msgs::GetPositionIK:
     response.error_code.val = response.error_code.SUCCESS;
   }
   delete state;
-  return ik_valid;
+  return true;
 }
 
 bool ArmKinematicsConstraintAware::getIKSolverInfo(kinematics_msgs::GetKinematicSolverInfo::Request &request, 
@@ -364,7 +364,7 @@ bool ArmKinematicsConstraintAware::getPositionFK(kinematics_msgs::GetPositionFK:
     valid = false;
   }
   delete state;
-  return valid;
+  return true;
 }
 
 } // namespace
