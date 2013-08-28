@@ -354,6 +354,16 @@ private:
     ros::Time smoothing_time = ros::Time::now();
     if(filter_trajectory_client_.call(req,res))
     {
+      if (res.error_code.val != res.error_code.SUCCESS)
+      {
+        ROS_ERROR("Service call to filter trajectory failed with error code: %d", res.error_code.val);
+        return false;
+      }
+      if (res.trajectory.points.empty())
+      {
+        ROS_ERROR("Service call to filter trajectory returned empty trajectory.");
+        return false;
+      }
       move_arm_stats_.trajectory_duration = (res.trajectory.points.back().time_from_start-res.trajectory.points.front().time_from_start).toSec();
       move_arm_stats_.smoothing_time = (ros::Time::now()-smoothing_time).toSec();
       trajectory_out = res.trajectory;
