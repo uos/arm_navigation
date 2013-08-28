@@ -260,7 +260,7 @@ bool ArmKinematicsConstraintAware::getPositionIK(kinematics_msgs::GetPositionIK:
 
   geometry_msgs::PoseStamped pose_msg_in = request.ik_request.pose_stamped;
   geometry_msgs::PoseStamped pose_msg_out;
-  
+
   if(!collision_models_interface_->convertPoseGivenWorldTransform(*state,
                                                                   solver_->getBaseName(),
                                                                   pose_msg_in.header,
@@ -339,7 +339,7 @@ bool ArmKinematicsConstraintAware::getPositionFK(kinematics_msgs::GetPositionFK:
                                       poses);
   if(valid) {
     response.pose_stamped.resize(poses.size());
-    response.fk_link_names.resize(poses.size()); 
+    response.fk_link_names.resize(poses.size());
     for(unsigned int i=0; i < poses.size(); i++) {      
       std_msgs::Header world_header;
       world_header.frame_id = collision_models_interface_->getWorldFrameId();
